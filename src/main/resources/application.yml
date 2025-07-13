@@ -1,0 +1,47 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    active: log,actuator,info
+  application:
+    name: gateway
+  threads:
+    virtual:
+      enabled: true
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: mcp-route
+              uri: lb://MCP-BOOT-WEBFLUX
+              predicates:
+                - Path=/mcp/**
+            - id: mcp-route-message
+              uri: lb://MCP-BOOT-WEBFLUX
+              predicates:
+                - Path=/mcp/message
+              filters:
+                - StripPrefix=1
+
+            - id: langchain4j
+              uri: http://langchain4j.dev
+              predicates:
+                - Path=/langchain4j/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=Authorization, Bearer demo
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+

@@ -1,0 +1,5 @@
+info:
+  app:
+    name: @project.name@
+    version: @project.version@
+    description: 网关服务

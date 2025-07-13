@@ -1,0 +1,8 @@
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-}]"
+  file:
+    path: ./logs
+  level:
+    org.springframework.boot.actuate: debug
+    "com.scd.gateway.loadbalancer": debug
