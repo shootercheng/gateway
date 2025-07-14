@@ -17,12 +17,6 @@ spring:
               uri: lb://MCP-BOOT-WEBFLUX
               predicates:
                 - Path=/mcp/**
-            - id: mcp-route-message
-              uri: lb://MCP-BOOT-WEBFLUX
-              predicates:
-                - Path=/mcp/message
-              filters:
-                - StripPrefix=1
 
             - id: langchain4j
               uri: http://langchain4j.dev
