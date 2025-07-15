@@ -18,6 +18,11 @@ spring:
               predicates:
                 - Path=/mcp/**
 
+            - id: mcp-no-sse
+              uri: lb://STREAMABLE-MCP-NO-SSE
+              predicates:
+                - Path=/no-sse/**
+
             - id: langchain4j
               uri: http://langchain4j.dev
               predicates:
